@@ -51,7 +51,7 @@ If it isn't installed you will get a prompt to install the command line develope
 
 ## Windows
 
-Download and install Git for Windows <https://gitforwindows.org/>[https://gitforwindows.org/]
+Download and install Git for Windows <https://gitforwindows.org/>
 
 ## Configuration (All OS)
 
@@ -61,4 +61,123 @@ Once git is installed run the following commands replacing the generic username 
 git config --global user.name "myusername"
 git config --global user.email "example@mysite.com"
 ```
+
+# Getting started with using Git on your machine
+
+So to set up a repository first you need to be in the directory you wish to use, in this instance we will create a new one but this will work with existing directories.
+
+```bash
+mkdir git-tutorial
+cd git-tutorial
+git init
+```
+
+# git status
+
+To check the status of your repository you can run the command `git status` and you will get an output like this:
+
+```text
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+So let's add some files and re run status:
+
+```bash
+echo "foo" > foo.txt
+echo "bar" > bar.txt
+git status
+```
+Output:
+```
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        bar.txt
+        foo.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+So we no we are on the branch called master, There are no commits yet and we now have two untracked files. In the next step we will look at how to add these files.  
+
+# git add
+
+The next step is to add some files to the staging area. Files in git can exist in three areas the working area, the staging area and the repository. Files in the working area can be modified and the changes will remain on the local machine until you add them to the staging area with `git add`. 
+
+```bash
+# Individual files can be added to the staging area.
+git add foo.txt bat.txt
+# All the all the unstaged files in a directory
+git add . 
+# Wildcards also work
+git add *.txt
+```
+
+Now lets re run the `git status` command.
+
+```text
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   bar.txt
+        new file:   foo.txt
+
+```
+
+# git commit
+
+The git commit command creates a snapshot of your repository’s content at a specific time. It records the changes made to the files in your repository. On top of that, commits serve as the comprehensive project record, showing you how it has evolved. Each commit has a unique commit ID for easier reference. A commit ID is also helpful for referring to a specific commit when you need to undo a change. This command is the second step in saving the changes made to a repository. The process starts with the `git add` command for staging any new changes you want to include in a commit. Then, git commit creates a commit with those changes to a repository. The `git add` command won’t affect anything until you execute `git commit`.
+
+```bash
+# Running git commit will drop you into your deafult text editor so you can add a message. 
+git commit 
+# Commit with a message use the -m flag 
+git commit -m "add in foo.txt and bar.txt"  
+# Commit all tracked files (Tracked files are ones which have been added to the index using git Add at some point but may have not been staged)
+git commit -a 
+# commit all with a message 
+git commit -am "add in foo.txt and bar.txt
+```
+
+Which ever one of these you run you should get a message similar to one below. 
+
+```text
+[master (root-commit) 1398a2a] add in foo.txt and bar.txt
+ 2 files changed, 2 insertions(+)
+ create mode 100644 bar.txt
+ create mode 100644 foo.txt
+```
+
+Let's run `git status` again:
+
+```text
+On branch master
+nothing to commit, working tree clean
+```
+
+So now we have created our first commit!
+
+# git log
+
+The git log command shows the commit history of a repository. If we run it we should get an output a bit like this:
+
+```text
+commit 7c00ad60d31a00d6027d07c51d7ed160c340ec7b
+Author: David Smith <smithd@well.ox.ac.uk>
+Date:   Tue Jun 14 15:08:23 2022 +0100
+
+    add in foo.txt and bar.txt
+```
+
+# git branch
 
