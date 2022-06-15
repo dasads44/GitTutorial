@@ -19,7 +19,7 @@ Some of the benefits of using Git are:
 
 - Easier Collaboration - Multiple people can work on Git repos at the same time as all the data is stored locally and then the work can be merged together (This can be tricky and requires the collaborators to have a system in place for merging code from branches).
 
-- Great for working on multiple machines - I often use git to write code to run on the Cluster on my own machine, I can then push the changes to the repo and run thr code and then pull any output files I want back on my local machine. All of this is version controlled and tracked so If I make a mistake I can roll it back and 
+- Great for working on multiple machines - I often use git to write code to run on the Cluster on my own machine, I can then push the changes to the repo and run thr code and then pull any output files I want back on my local machine. All of this is version controlled and tracked so If I make a mistake I can roll it back and it disappears.
 
 - Reproducibility - code can be shared with others to allow your analysis to be reproduced by others.
 
@@ -62,7 +62,7 @@ git config --global user.name "myusername"
 git config --global user.email "example@mysite.com"
 ```
 
-# Getting started with using Git on your machine
+# Getting started with using Git on your local machine
 
 So to set up a repository first you need to be in the directory you wish to use, in this instance we will create a new one but this will work with existing directories.
 
@@ -72,7 +72,7 @@ cd git-tutorial
 git init
 ```
 
-# git status
+## git status
 
 To check the status of your repository you can run the command `git status` and you will get an output like this:
 
@@ -91,8 +91,10 @@ echo "foo" > foo.txt
 echo "bar" > bar.txt
 git status
 ```
+
 Output:
-```
+
+```text
 On branch master
 
 No commits yet
@@ -105,11 +107,11 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
-So we no we are on the branch called master, There are no commits yet and we now have two untracked files. In the next step we will look at how to add these files.  
+So we no we are on the branch called master (This is the default branch), there are no commits yet and we now have two untracked files. In the next step we will look at how to add these files.  
 
-# git add
+## git add
 
-The next step is to add some files to the staging area. Files in git can exist in three areas the working area, the staging area and the repository. Files in the working area can be modified and the changes will remain on the local machine until you add them to the staging area with `git add`. 
+The next step is to add some files to the staging area. Files in git can exist in three areas the working area, the staging area and the repository. Files in the working area can be modified and the changes will remain on the local machine until you add them to the staging area with `git add`.
 
 ```bash
 # Individual files can be added to the staging area.
@@ -134,12 +136,12 @@ Changes to be committed:
 
 ```
 
-# git commit
+## git commit
 
 The git commit command creates a snapshot of your repository’s content at a specific time. It records the changes made to the files in your repository. On top of that, commits serve as the comprehensive project record, showing you how it has evolved. Each commit has a unique commit ID for easier reference. A commit ID is also helpful for referring to a specific commit when you need to undo a change. This command is the second step in saving the changes made to a repository. The process starts with the `git add` command for staging any new changes you want to include in a commit. Then, git commit creates a commit with those changes to a repository. The `git add` command won’t affect anything until you execute `git commit`.
 
 ```bash
-# Running git commit will drop you into your deafult text editor so you can add a message. 
+# Running git commit will drop you into your default text editor so you can add a message. 
 git commit 
 # Commit with a message use the -m flag 
 git commit -m "add in foo.txt and bar.txt"  
@@ -149,7 +151,7 @@ git commit -a
 git commit -am "add in foo.txt and bar.txt
 ```
 
-Which ever one of these you run you should get a message similar to one below. 
+Which ever one of these you run you should get a message similar to one below.
 
 ```text
 [master (root-commit) 1398a2a] add in foo.txt and bar.txt
@@ -167,7 +169,7 @@ nothing to commit, working tree clean
 
 So now we have created our first commit!
 
-# git log
+## git log
 
 The git log command shows the commit history of a repository. If we run it we should get an output a bit like this:
 
@@ -179,5 +181,136 @@ Date:   Tue Jun 14 15:08:23 2022 +0100
     add in foo.txt and bar.txt
 ```
 
-# git branch
+## git tag
 
+`git tag` can be used to show a key point in the repo history such as a V1.0 release or maybe the addition of an additional data set or something, this can make it easier to identify key commits if there are lots in a repo.
+
+## git branch
+
+`git branch` can be used to create, rename and delete other branches. 
+
+```bash
+# create new branch called foobar2.0
+git branch foobar2.0 
+# rename the current branch foobarMain
+git branch -m foobarMain
+# delete the foobarMain branch
+git branch -d foobarMain
+# list the branches in the repo
+git branch 
+# or
+git branch --list
+```
+
+## git checkout
+
+Now we have created a new branch we have to switch to it before we can start working in it. We can do this with `git checkout`.
+
+```bash
+# switch to the foobar2.0 branch
+git checkout foobar2.0
+# show the current branch
+git branch --show-current
+```
+
+Now lets make some changes.
+
+```bash
+echo "foobarfoobar" > foo.txt
+
+git add
+
+git commit -m "adding in foobarfoobar"
+```
+
+## git merge
+
+`git merge` can be used to merge your changes from a branch into another branch. So whilst in the main branch you can merge it with another branch using 'git merge'
+
+```bash
+git checkout foobarMain
+git merge foobar2.0
+```
+
+The output wil be something like this:
+
+```text
+Updating 7c00ad6..2619ffe
+Fast-forward
+ foo.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+## git restore
+
+One of the cool things about git is rolling back changes using `git restore`
+
+```bash
+# lets remove the bar.txt file 
+rm bar.txt
+ls
+# now lets use git to get that file back.  
+git restore bar.txt
+ls
+```
+
+You can also roll back by multiple commits or for whole directories etc and but I won't go into the full details you can look at the git documentation.
+
+# Remote Git Repositories
+
+Up until now everything we have done has been local only. One of the great strengths of Git is the ability to collaborate and host things on remote repository hosted on GitHub or BitBucket or GitLab. So lets look at how we can set up a remote repository.
+
+So the easiest way of setting up a remote repository is to go to your Github Account and create a new repository. You can then clone this repository by copying the url and using the command 
+
+## git clone
+
+```bash
+git clone https://github.com/dasads44/GitTutorial.git
+```
+
+## git remote
+
+You can also add a remote repo to an existing local repo by going to the local repo and using `git remote add`.
+
+```bash
+# You need to change the name
+git remote add <name> https://github.com/dasads44/GitTutorial.git
+```
+
+## git push
+
+To push your local changes to a remote sever you use the command `git push`
+
+```bash
+git push <remote name> <branch name>
+# For example, if the remote repository name is origin and the branch name is main, the syntax should look like this:
+git push origin main
+```
+
+## git pull
+
+To pull your repo from a remote sever you use the command `git push`
+
+```bash
+git pull <remote repository name>
+# For example, to retrieve the content of the main branch, use this command:
+git pull main
+
+# If you want to pull code from just one specific branch, use this syntax:
+git checkout <branch name>
+git pull <remote name>
+
+#If you want to work with code on a branch named demo-v1, and the remote repository name is main. The command will be as follows:
+git checkout demo-v1
+git pull main
+```
+
+# Documentation
+
+Git is very powerful and It is impossible for me to go into enough details in this session. But you can find extra information online.
+
+Official Git Documentation
+<https://git-scm.com/>
+
+Git Cheat Sheet
+https://about.gitlab.com/images/press/git-cheat-sheet.pdf
