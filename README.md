@@ -187,7 +187,7 @@ Date:   Tue Jun 14 15:08:23 2022 +0100
 
 ## git branch
 
-`git branch` can be used to create, rename and delete other branches. 
+`git branch` can be used to create, rename and delete other branches.
 
 ```bash
 # create new branch called foobar2.0
@@ -260,7 +260,7 @@ You can also roll back by multiple commits or for whole directories etc and but 
 
 Up until now everything we have done has been local only. One of the great strengths of Git is the ability to collaborate and host things on remote repository hosted on GitHub or BitBucket or GitLab. So lets look at how we can set up a remote repository.
 
-So the easiest way of setting up a remote repository is to go to your Github Account and create a new repository. You can then clone this repository by copying the url and using the command 
+So the easiest way of setting up a remote repository is to go to your Github Account and create a new repository. You can then clone this repository by copying the url and using the command.
 
 ## git clone
 
@@ -313,4 +313,4 @@ Official Git Documentation
 <https://git-scm.com/>
 
 Git Cheat Sheet
-https://about.gitlab.com/images/press/git-cheat-sheet.pdf
+<https://about.gitlab.com/images/press/git-cheat-sheet.pdf>
