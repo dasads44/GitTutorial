@@ -256,7 +256,7 @@ ls
 
 You can also roll back by multiple commits or for whole directories etc and but I won't go into the full details you can look at the git documentation.
 
-# Deleting commits
+## Deleting commits
 
 Sometimes you don't want to simply roll back you want to delete a commit entirely this can be done using `git reset --hard`. This isn't recommended though as Git is designed to keep a history of what you did and that does not work if you delete the commits. But if you must delete a commit you can do the following:
 
