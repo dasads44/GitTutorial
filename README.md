@@ -256,6 +256,19 @@ ls
 
 You can also roll back by multiple commits or for whole directories etc and but I won't go into the full details you can look at the git documentation.
 
+# Deleting commits
+
+Sometimes you don't want to simply roll back you want to delete a commit entirely this can be done using `git reset --hard`. This isn't recommended though as Git is designed to keep a history of what you did and that does not work if you delete the commits. But if you must delete a commit you can do the following:
+
+```bash
+# delete the previous branch
+git reset --hard HEAD~1
+# delete a specific branch 
+git reset --hard <sha1-commit-id>
+```
+
+Note: deleting commits will cause problems if you are collaborating with others as the commit will not be deleted on the collaborators local repo.
+
 # Remote Git Repositories
 
 Up until now everything we have done has been local only. One of the great strengths of Git is the ability to collaborate and host things on remote repository hosted on GitHub or BitBucket or GitLab. So lets look at how we can set up a remote repository.
